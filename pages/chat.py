@@ -50,7 +50,7 @@ st.markdown("""
 
 client = Groq()
 
-groq_api_key=os.environ.get("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")
+GROQ_API_KEY=os.environ.get("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")
 completion = client.chat.completions.create(
     model="llama3-70b-8192",
     messages=[],
