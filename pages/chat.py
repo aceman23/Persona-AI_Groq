@@ -47,7 +47,7 @@ st.markdown("""
             </style>
             """,unsafe_allow_html=True)
 
-client = Groq(
+client = Groq (
     api_key=os.environ.get("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"),
 )
 
