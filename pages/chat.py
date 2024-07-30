@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 from streamlit_pills import pills
 from util import hide_header_footer
 
-grow_api_key = <sk_X23yacSkMGRUqa6hAHOMWGdyb3FYBFrTcJGfc6EVqUmrwryGLCOJ>
-
 
 
 load_dotenv()
