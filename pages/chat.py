@@ -50,9 +50,20 @@ st.markdown("""
             </style>
             """,unsafe_allow_html=True)
 
-client = Groq(
-    api_key=os.environ.get("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"),
+client = Groq()
+completion = client.chat.completions.create(
+    model="llama3-70b-8192",
+    messages=[],
+    temperature=1,
+    max_tokens=1024,
+    top_p=1,
+    stream=True,
+    stop=None,
 )
+
+for chunk in completion:
+    print(chunk.choices[0].delta.content or "", end="")
+    
 user_input = st.chat_input()
 
 if user_input and persona_prompt and persona_role:
