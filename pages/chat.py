@@ -1,5 +1,6 @@
 import os
-from groq import Groq
+from groq import Groq 
+import GROQ_API_KEY=<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>
 import uuid
 import pandas as pd
 from share_state import get_server_state, set_server_state
@@ -7,6 +8,8 @@ import streamlit as st
 from dotenv import load_dotenv
 from streamlit_pills import pills
 from util import hide_header_footer
+
+
 
 
 load_dotenv()
