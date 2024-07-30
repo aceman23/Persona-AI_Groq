@@ -1,6 +1,6 @@
 import os
 from groq import Groq 
-GROQ_API_KEY  <"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">
+grow_api_key = <"sk_X23yacSkMGRUqa6hAHOMWGdyb3FYBFrTcJGfc6EVqUmrwryGLCOJ">
 import uuid
 import pandas as pd
 from share_state import get_server_state, set_server_state
@@ -51,6 +51,8 @@ st.markdown("""
             """,unsafe_allow_html=True)
 
 client = Groq()
+
+groq_api_key=os.environ.get("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")
 completion = client.chat.completions.create(
     model="llama3-70b-8192",
     messages=[],
