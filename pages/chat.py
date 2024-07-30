@@ -62,7 +62,7 @@ for chunk in completion:
     print(chunk.choices[0].delta.content or "", end="")
 
     api_key=os.environ.get("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"),
-)
+
 
 user_input = st.chat_input()
 
