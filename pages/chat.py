@@ -1,6 +1,5 @@
 import os
 from groq import Groq 
-grow_api_key = <"sk_X23yacSkMGRUqa6hAHOMWGdyb3FYBFrTcJGfc6EVqUmrwryGLCOJ">
 import uuid
 import pandas as pd
 from share_state import get_server_state, set_server_state
@@ -9,6 +8,7 @@ from dotenv import load_dotenv
 from streamlit_pills import pills
 from util import hide_header_footer
 
+grow_api_key = <"sk_X23yacSkMGRUqa6hAHOMWGdyb3FYBFrTcJGfc6EVqUmrwryGLCOJ">
 
 
 
