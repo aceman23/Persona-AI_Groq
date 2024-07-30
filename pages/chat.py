@@ -47,7 +47,7 @@ st.markdown("""
             </style>
             """,unsafe_allow_html=True)
 
-client = Groq()
+client = Groq(
 completion = client.chat.completions.create(
     model="llama3-70b-8192",
     messages=[],
@@ -63,7 +63,7 @@ for chunk in completion:
 
     api_key=os.environ.get("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"),
 
-
+)
 user_input = st.chat_input()
 
 if user_input and persona_prompt and persona_role:
