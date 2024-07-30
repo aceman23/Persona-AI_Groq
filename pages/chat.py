@@ -48,21 +48,9 @@ st.markdown("""
             </style>
             """,unsafe_allow_html=True)
 
-client = Groq()
-
-GROQ_API_KEY=os.environ.get("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")
-completion = client.chat.completions.create(
-    model="llama3-70b-8192",
-    messages=[],
-    temperature=1,
-    max_tokens=1024,
-    top_p=1,
-    stream=True,
-    stop=None,
+client = Groq(
+    api_key=os.environ.get("GROQ_API_KEY"),
 )
-
-for chunk in completion:
-    print(chunk.choices[0].delta.content or "", end="")
     
 user_input = st.chat_input()
 
