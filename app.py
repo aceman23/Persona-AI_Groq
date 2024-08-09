@@ -42,7 +42,7 @@ df = pd.read_csv('persona.csv')
 unique_categories_list  = df["Category"].unique().tolist()
 
 categories_list = ["All",*unique_categories_list]
-selected = pills("Category: ", categories_list,['🔥','🧑‍💼','⛪','🦉','🤔','😎','🔡','🪴'])
+selected = pills("Category: ", categories_list,['🔥','🧑‍💼','⛪','🦉','🤔','😎','🔡'])
 
 row1 = st.columns(4) 
 row2 =  st.columns(4) 
