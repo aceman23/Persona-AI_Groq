@@ -4,7 +4,7 @@ from streamlit_pills import pills
 from share_state import set_server_state
 from util import hide_header_footer
 
-st.set_page_config(page_title="Persona ~AI",layout='wide', initial_sidebar_state='collapsed')
+st.set_page_config(page_title="Mulit-Persona ~AI",layout='wide', initial_sidebar_state='collapsed')
 
 hide_header_footer()
 st.markdown("""
