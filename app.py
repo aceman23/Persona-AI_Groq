@@ -4,7 +4,7 @@ from streamlit_pills import pills
 from share_state import set_server_state
 from util import hide_header_footer
 
-st.set_page_config(page_title="Multi-Persona ~AI for Azara",layout='wide', initial_sidebar_state='collapsed')
+st.set_page_config(page_title="Multi-Persona ~AI ",layout='wide', initial_sidebar_state='collapsed')
 
 hide_header_footer()
 st.markdown("""
@@ -35,7 +35,7 @@ def persona_grid_cell(id,role,description,prompt):
          st.switch_page('pages/chat.py')
          
 
-st.header("Multi-Persona ~AI for Azara", divider='rainbow')
+st.header("Multi-Persona ~AI", divider='rainbow')
 st.caption("A persona is a fictional representation of a person, character, or concept. In Generative AI using Groq Provider")
 
 df = pd.read_csv('persona.csv')
