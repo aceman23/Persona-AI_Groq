@@ -35,7 +35,7 @@ def persona_grid_cell(id,role,description,prompt):
          st.switch_page('pages/chat.py')
          
 
-st.header("Multi-Persona ~AI", divider='rainbow')
+st.header("Multi-Persona ~AI for Azara", divider='rainbow')
 st.caption("A persona is a fictional representation of a person, character, or concept. In Generative AI using Groq Provider")
 
 df = pd.read_csv('persona.csv')
