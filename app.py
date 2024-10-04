@@ -61,6 +61,6 @@ if selected != "All":
 i = 0
 for index,cell in df.iterrows():
     with grid[i]:
-        persona_grid_cell(cell["ID"],cell["Role"],cell["Description"],cell["Prompt"])
+        persona_grid_cell(cell["Id"],cell["Role"],cell["Description"],cell["Prompt"])
     i = i + 1
 
