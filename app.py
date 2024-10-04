@@ -35,7 +35,7 @@ def persona_grid_cell(id,role,description,prompt):
          st.switch_page('pages/chat.py')
          
 
-st.header("Multi-IT Persona Gen-AI Demo - by Anton Ansalmar", divider='rainbow')
+st.header("Multi-IT Persona Gen-AI Demo", divider='rainbow')
 st.caption(" Leveraging the power of Generative AI and Groq Cloud to create virtual IT personas. These AI-powered assistants can answer questions, troubleshoot issues, and provide support across various IT domains, enhancing efficiency and user satisfaction within your enterprise.")
 st.caption(" Powered by: llama3-70b-8192 LLM Model")
 st.caption(" Powered by: Groq Cloud 'LPU' Inference Engine")
