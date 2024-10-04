@@ -36,7 +36,7 @@ def persona_grid_cell(id,role,description,prompt):
          
 
 st.header("Multi-IT Persona Gen-AI Demo - by Anton Ansalmar", divider='rainbow')
-st.caption(" Leverage the power of Generative AI and Groq Provider to create virtual IT personas. These AI-powered assistants can answer questions, troubleshoot issues, and provide support across various IT domains, enhancing efficiency and user satisfaction within your enterprise.")
+st.caption(" Leveraging the power of Generative AI and Groq Cloud to create virtual IT personas. These AI-powered assistants can answer questions, troubleshoot issues, and provide support across various IT domains, enhancing efficiency and user satisfaction within your enterprise.")
 st.caption(" Powered by: llama3-70b-8192 LLM Model")
 st.caption(" Powered by: Groq Cloud 'LPU' Inference Engine")
 st.caption(" Powered by: Streamlit")
@@ -45,7 +45,7 @@ df = pd.read_csv('persona.csv')
 unique_categories_list  = df["Category"].unique().tolist()
 
 categories_list = ["All",*unique_categories_list]
-selected = pills("Category: ", categories_list,['🐧','📊','👨‍💻','💻','🔒','🔧','📡','💽','🤖'])
+selected = pills("Category: ", categories_list,['💻','🐧','👨‍💻','💻','🔒','🔧','📡','💽','🤖'])
 
 row1 = st.columns(4) 
 row2 =  st.columns(4) 
