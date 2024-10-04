@@ -4,7 +4,7 @@ from streamlit_pills import pills
 from share_state import set_server_state
 from util import hide_header_footer
 
-st.set_page_config(page_title="Multi-IT Persona Generative~AI Demo",layout='wide', initial_sidebar_state='collapsed')
+st.set_page_config(page_title="Multi-IT Persona Gen-AI Demo",layout='wide', initial_sidebar_state='collapsed')
 
 hide_header_footer()
 st.markdown("""
@@ -35,12 +35,11 @@ def persona_grid_cell(id,role,description,prompt):
          st.switch_page('pages/chat.py')
          
 
-st.header("Multi-IT Persona Generative~AI Demo", divider='rainbow')
+st.header("Multi-IT Persona Gen-AI Demo - by Anton Ansalmar", divider='rainbow')
 st.caption(" Leverage the power of Generative AI and Groq Provider to create virtual IT personas. These AI-powered assistants can answer questions, troubleshoot issues, and provide support across various IT domains, enhancing efficiency and user satisfaction within your enterprise.")
 st.caption(" Powered by: llama3-70b-8192 LLM Model")
 st.caption(" Powered by: Groq Cloud 'LPU' Inference Engine")
 st.caption(" Powered by: Streamlit")
-
 
 df = pd.read_csv('persona.csv')
 unique_categories_list  = df["Category"].unique().tolist()
