@@ -1,5 +1,5 @@
-# Multi-Persona-AI-Groq
-Multi-Persona AI Support uses Groq's Client LLM to create highly personalized AI Expert Agents offering instant assitance to your IT Team and your Organization. 
+# Multi-Persona-AI-IT-Support-Agents-PoweredbyGroq
+Multi-Persona AI Support Agents codebase uses Groq's Client LLM to create highly personalized AI Expert Agents offering instant assitance to your IT Team and your Organization. 
 
 Leveraging the power of Generative AI and Groq Cloud to create virtual IT personas. These AI-powered assistants can answer questions, troubleshoot issues, and provide support across various IT domains, enhancing efficiency and user satisfaction within your enterprise.
 
