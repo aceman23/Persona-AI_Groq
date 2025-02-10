@@ -7,6 +7,6 @@ Powered by: llama3-70b-8192 LLM Model ( you can replace with any model)
 
 Powered by: Groq Cloud 'LPU' Inference Engine.
 
-Demo Running on StreamLit: 
+Demo Running on StreamLit: https://multi-persona-ai-groq-demo.streamlit.app/
 
 For Inquires please reach out to: https://calendly.com/hybridadsai/30min
