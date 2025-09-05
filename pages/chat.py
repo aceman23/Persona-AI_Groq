@@ -13,15 +13,29 @@ from util import hide_header_footer
 
 load_dotenv()
 
-# ---- Persona Management ----
-if "personas" not in st.session_state:
-    st.session_state.personas = []
+PERSONA_FILE = "personas_store.csv"
 
+# ---- Load personas from CSV ----
+def load_personas():
+    if os.path.exists(PERSONA_FILE):
+        return pd.read_csv(PERSONA_FILE).to_dict(orient="records")
+    return []
+
+# ---- Save personas to CSV ----
+def save_personas(personas):
+    df = pd.DataFrame(personas)
+    df.to_csv(PERSONA_FILE, index=False)
+
+# ---- Initialize personas in session ----
+if "personas" not in st.session_state:
+    st.session_state.personas = load_personas()
+
+# ---- Persona Management ----
 st.sidebar.header("🧑‍🎨 Persona Manager")
 
 with st.sidebar.form("persona_form", clear_on_submit=True):
     name = st.text_input("Persona Name")
-    tone = st.selectbox("Tone", ["Friendly", "Professional", "Casual", "Formal", "Funny"])
+    tone = st.selectbox("Tone", ["Expert", "Professional", "Casual", "Formal", "Manager"])
     domain = st.text_input("Domain / Expertise")
     backstory = st.text_area("Backstory")
 
@@ -30,6 +44,7 @@ with st.sidebar.form("persona_form", clear_on_submit=True):
     if submitted and name.strip():
         persona = {"name": name, "tone": tone, "domain": domain, "backstory": backstory}
         st.session_state.personas.append(persona)
+        save_personas(st.session_state.personas)  # persist to CSV
         st.success(f"Persona '{name}' added!")
 
 # ---- Persona Selection ----
@@ -57,10 +72,3 @@ if active_persona:
     """
 else:
     system_prompt = "You are a helpful AI assistant."
-
-# Example placeholder for how you'd use it:
-# response = client.chat.completions.create(
-#     model="llama3-8b-8192",
-#     messages=[{"role": "system", "content": system_prompt},
-#               {"role": "user", "content": user_input}]
-# )
