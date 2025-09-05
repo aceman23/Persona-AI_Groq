@@ -49,7 +49,7 @@ st.markdown("""
             """,unsafe_allow_html=True)
 
 client = Groq(
-    api_key=os.environ.get("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"),
+   GROQ_API_KEY=os.environ.get("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"),
 )
     
 user_input = st.chat_input()
