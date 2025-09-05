@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from groq import Groq 
 import uuid
 import pandas as pd
@@ -11,6 +12,7 @@ from util import hide_header_footer
 
 
 load_dotenv()
+
 st.set_page_config(page_title="Persona Chat",layout='wide', initial_sidebar_state='collapsed')
 
 hide_header_footer()
@@ -48,8 +50,7 @@ st.markdown("""
             </style>
             """,unsafe_allow_html=True)
 
-client = Groq(
-   api_key=os.environ.get("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"),
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 )
     
 user_input = st.chat_input()
