@@ -124,33 +124,40 @@ personas_list = st.session_state.personas
 if personas_list:
     st.subheader("Explore All Personas")
     
-        # Create a dictionary to map each category to its icon
-        category_to_icon_map = {
-            "All": "🎯",
-            "IT Expert": "💻",
-            "Help Desk": "👨‍💻",
-            "SAP": "📈",
-            "Data Scientist": "📊",
-            "Network": "🌐",
-            "Security": "🔒",
-            "Hardware": "🔧",
-            "Software": "🖥️",
-            # Add more mappings as you add categories
-        }
-        
-        # Get a list of unique categories from the DataFrame
-        unique_categories = ["All"] + df["Category"].unique().tolist()
-        
-        # Create a list of icons that matches the order of the categories
-        icon_list = [category_to_icon_map.get(cat, "❓") for cat in unique_categories]
-        
-        # Pass the dynamic lists to pills()
-        selected = pills("Category: ", unique_categories, icon_list)
+    # Create a dictionary to map each category to its icon
+    category_to_icon_map = {
+        "All": "🎯",
+        "IT Expert": "💻",
+        "Help Desk": "👨‍💻",
+        "SAP": "📈",
+        "Data Scientist": "📊",
+        "Network": "🌐",
+        "Security": "🔒",
+        "Hardware": "🔧",
+        "Software": "🖥️",
+        # Add more mappings as you add categories
+    }
+    
+    # Get a list of unique categories from the persona list
+    # Use a set comprehension for a robust way to get unique categories
+    unique_categories = ["All"] + list(set(p.get("category", "Uncategorized") for p in personas_list))
+    
+    # Create a list of icons that matches the order of the categories
+    icon_list = [category_to_icon_map.get(cat, "❓") for cat in unique_categories]
+    
+    # Pass the dynamic lists to pills()
+    selected_pill = pills("Category: ", unique_categories, icon_list)
 
-if selected_pill != "All":
-    filtered_personas = [p for p in personas_list if p.get("category", "Uncategorized") == selected_pill]
+    if selected_pill != "All":
+        filtered_personas = [p for p in personas_list if p.get("category", "Uncategorized") == selected_pill]
+    else:
+        filtered_personas = personas_list
+
+    # Now you can create the grid and display the filtered_personas list
+    # The rest of your code for creating the grid and iterating over filtered_personas
+    # should be placed here, also within this same if block.
 else:
-    filtered_personas = personas_list
+    st.info("No personas available to display. Please create one in the sidebar.")
 
 # Create the grid
 num_cols = 4
