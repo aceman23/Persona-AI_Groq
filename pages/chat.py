@@ -106,27 +106,22 @@ if active_persona:
         else:
             st.chat_message("assistant").markdown(content)
 
-    # Chat input
-    if prompt := st.chat_input("Type your message..."):
-        # Add user message
-        system_prompt = f"""
+# Chat input
+if prompt := st.chat_input("Type your message..."):
+    # First, always add the user's message to the chat history.
+    user_message = {"role": "user", "content": prompt}
+    st.session_state.chat_histories[persona_name].append(user_message)
+    st.chat_message("user").markdown(prompt)
 
-        # Build system prompt
-     
-        You are {active_persona['name']} with a {active_persona['tone']} tone.
-        Your expertise is in {active_persona['domain']}.
-        Backstory: {active_persona['backstory']}
-        """
+    # Then, build the system prompt.
+    system_prompt = f"""
+    You are {active_persona['name']} with a {active_persona['tone']} tone.
+    Your expertise is in {active_persona['domain']}.
+    Backstory: {active_persona['backstory']}
+    """
 
-         # Add user message to history
-        st.session_state.chat_histories[persona_name].append({"role": "user", "content": prompt})
-        st.chat_message("user").markdown(prompt)
-
- 
-
-        # Call Groq API
+    # Finally, call the API within a try...except block.
     try:
-         # The rest of your API call logic...
         client = Groq(api_key=os.getenv("GROQ_API_KEY"))
         response = client.chat.completions.create(
             model="llama3-70b-8192",
@@ -135,7 +130,6 @@ if active_persona:
                 *st.session_state.chat_histories[persona_name],
             ]
         )
-
         ai_reply = response.choices[0].message.content
         
         # Only append assistant message if API call was successful
@@ -143,7 +137,7 @@ if active_persona:
         st.chat_message("assistant").markdown(ai_reply)
 
     except Exception as e:
-        # If the API call fails, inform the user and remove the user's message
+        # If the API call fails, inform the user and remove the last user message.
         st.error(f"An error occurred while calling the Groq API: {e}")
         st.session_state.chat_histories[persona_name].pop()
 
