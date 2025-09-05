@@ -9,24 +9,7 @@ from util import hide_header_footer
 
 load_dotenv()
 
-df_combined = pd.DataFrame()
-
-# Read from personas_store.csv if it exists
-if os.path.exists('personas_store.csv'):
-    df_store = pd.read_csv('personas_store.csv')
-    df_combined = pd.concat([df_combined, df_store], ignore_index=True)
-
-# Read from persona.csv if it exists and combine
-if os.path.exists('persona.csv'):
-    df_gallery = pd.read_csv('persona.csv')
-    df_combined = pd.concat([df_combined, df_gallery], ignore_index=True)
-
-# Remove any duplicate personas based on the 'name' column
-if not df_combined.empty:
-    df_combined.drop_duplicates(subset=['name'], keep='first', inplace=True)
-
-# Use df_combined for the rest of your code
-df = df_combined
+df = pd.read_csv('personas_store.csv')
 
 # ---- Load personas from CSV ----
 def load_personas():
