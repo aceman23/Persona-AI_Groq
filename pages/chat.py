@@ -131,13 +131,15 @@ if active_persona:
         )
 
         ai_reply = response.choices[0].message.content
+        
+        # Only append assistant message if API call was successful
+        st.session_state.chat_histories[persona_name].append({"role": "assistant", "content": ai_reply})
+        st.chat_message("assistant").markdown(ai_reply)
 
     except Exception as e:
+        # If the API call fails, inform the user and remove the user's message
         st.error(f"An error occurred while calling the Groq API: {e}")
         st.session_state.chat_histories[persona_name].pop()
 
-        # Add assistant message
-        st.session_state.chat_histories[persona_name].append({"role": "assistant", "content": ai_reply})
-        st.chat_message("assistant").markdown(ai_reply)
 else:
     st.info("👉 Please create or select a persona to start chatting.")
