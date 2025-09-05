@@ -120,7 +120,7 @@ if active_persona:
         """
 
         # Call Groq API
-      try
+    try
         client = Groq(api_key=os.getenv("GROQ_API_KEY"))
         response = client.chat.completions.create(
             model="llama3-70b-8192",
@@ -132,7 +132,7 @@ if active_persona:
 
         ai_reply = response.choices[0].message.content
 
-        except Exception as e:
+    except Exception as e:
         st.error(f"An error occurred while calling the Groq API: {e}")
         st.session_state.chat_histories[persona_name].pop()
 
