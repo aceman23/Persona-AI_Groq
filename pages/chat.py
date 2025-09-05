@@ -131,6 +131,10 @@ if active_persona:
 
         ai_reply = response.choices[0].message.content
 
+        except Exception as e:
+        st.error(f"An error occurred while calling the Groq API: {e}")
+        st.session_state.chat_histories[persona_name].pop()
+
         # Add assistant message
         st.session_state.chat_histories[persona_name].append({"role": "assistant", "content": ai_reply})
         st.chat_message("assistant").markdown(ai_reply)
