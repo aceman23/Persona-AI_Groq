@@ -1,5 +1,9 @@
 import streamlit as st
 import pandas as pd
+import os
+
+
+PERSONA_FILE = "personas_store.csv"
 
 # ---- Session State for Personas ----
 if "personas" not in st.session_state:
