@@ -122,14 +122,14 @@ if active_persona:
         # Call Groq API
         client = Groq(api_key=os.getenv("GROQ_API_KEY"))
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="llama3-70b-8192",
             messages=[
                 {"role": "system", "content": system_prompt},
                 *st.session_state.chat_histories[persona_name],
             ]
         )
 
-        ai_reply = response.choices[0].message["content"]
+        ai_reply = response.choices[0].message.content
 
         # Add assistant message
         st.session_state.chat_histories[persona_name].append({"role": "assistant", "content": ai_reply})
