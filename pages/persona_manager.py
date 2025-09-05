@@ -1,4 +1,4 @@
-import streamlit as st
+pertimport streamlit as st
 import pandas as pd
 
 # ---- Session State for Personas ----
@@ -10,7 +10,7 @@ st.sidebar.header("🧑‍🎨 Persona Manager")
 
 with st.sidebar.form("persona_form", clear_on_submit=True):
     name = st.text_input("Persona Name")
-    tone = st.selectbox("Tone", ["Friendly", "Professional", "Casual", "Formal", "Funny"])
+    tone = st.selectbox("Tone", ["Expert", "Professional", "Casual", "Formal", "Funny"])
     domain = st.text_input("Domain / Expertise", placeholder="e.g. Healthcare, Marketing, Finance")
     backstory = st.text_area("Backstory", placeholder="What’s this persona’s role, history, or style?")
 
