@@ -10,4 +10,4 @@ Powered by: Groq Cloud 'LPU' Inference Engine.
 
 Demo Running on StreamLit: https://multi-persona-ai-groq-demo.streamlit.app/
 
-For Inquires please reach out to: https://calendly.com/hybridadsai/30min
+For Inquires please reach out to: https://calendly.com/antona23
