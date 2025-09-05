@@ -46,7 +46,7 @@ with st.sidebar.form("persona_form", clear_on_submit=True):
         tone = st.selectbox(
             "Tone",
             ["Friendly", "Professional", "Casual", "Formal", "Funny"],
-            index=["Friendly", "Professional", "Casual", "Formal", "Funny"].index(persona_to_edit["tone"]),
+            index=["Expert", "Professional", "Casual", "Formal", "Funny"].index(persona_to_edit["tone"]),
         )
         domain = st.text_input("Domain / Expertise", persona_to_edit["domain"])
         backstory = st.text_area("Backstory", persona_to_edit["backstory"])
