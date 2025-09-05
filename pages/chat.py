@@ -124,7 +124,7 @@ if prompt := st.chat_input("Type your message..."):
     try:
         client = Groq(api_key=os.getenv("GROQ_API_KEY"))
         response = client.chat.completions.create(
-            model="llama-3.1-70b-versatile",
+            model="meta-llama/llama-4-maverick-17b-128e-instruct",
             messages=[
                 {"role": "system", "content": system_prompt},
                 *st.session_state.chat_histories[persona_name],
