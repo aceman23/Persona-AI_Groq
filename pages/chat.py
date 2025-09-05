@@ -110,8 +110,6 @@ if active_persona:
     if prompt := st.chat_input("Type your message..."):
         # Add user message
         system_prompt = f"""
-        st.session_state.chat_histories[persona_name].append({"role": "user", "content": prompt})
-        st.chat_message("user").markdown(prompt)
 
         # Build system prompt
      
@@ -120,8 +118,15 @@ if active_persona:
         Backstory: {active_persona['backstory']}
         """
 
+         # Add user message to history
+        st.session_state.chat_histories[persona_name].append({"role": "user", "content": prompt})
+        st.chat_message("user").markdown(prompt)
+
+ 
+
         # Call Groq API
     try:
+         # The rest of your API call logic...
         client = Groq(api_key=os.getenv("GROQ_API_KEY"))
         response = client.chat.completions.create(
             model="llama3-70b-8192",
