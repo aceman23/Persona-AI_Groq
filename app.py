@@ -124,31 +124,30 @@ personas_list = st.session_state.personas
 if personas_list:
     st.subheader("Explore All Personas")
     
-# Create a dictionary to map each category to its icon
-category_to_icon_map = {
-    "All": "🎯",
-    "IT Expert": "💻",
-    "Help Desk": "👨‍💻",
-    "SAP": "📈",
-    "Data Scientist": "📊",
-    "Network": "🌐",
-    "Security": "🔒",
-    "Hardware": "🔧",
-    "Software": "🖥️",
-    # Add more mappings as you add categories
-}
+        # Create a dictionary to map each category to its icon
+        category_to_icon_map = {
+            "All": "🎯",
+            "IT Expert": "💻",
+            "Help Desk": "👨‍💻",
+            "SAP": "📈",
+            "Data Scientist": "📊",
+            "Network": "🌐",
+            "Security": "🔒",
+            "Hardware": "🔧",
+            "Software": "🖥️",
+            # Add more mappings as you add categories
+        }
+        
+        # Get a list of unique categories from the DataFrame
+        unique_categories = ["All"] + df["Category"].unique().tolist()
+        
+        # Create a list of icons that matches the order of the categories
+        icon_list = [category_to_icon_map.get(cat, "❓") for cat in unique_categories]
+        
+        # Pass the dynamic lists to pills()
+        selected = pills("Category: ", unique_categories, icon_list)
 
-# Get a list of unique categories from the DataFrame
-unique_categories = ["All"] + df["Category"].unique().tolist()
-
-# Create a list of icons that matches the order of the categories
-icon_list = [category_to_icon_map.get(cat, "❓") for cat in unique_categories]
-
-# Pass the dynamic lists to pills()
-selected = pills("Category: ", unique_categories, icon_list)
-
-    
-  if selected_pill != "All":
+if selected_pill != "All":
     filtered_personas = [p for p in personas_list if p.get("category", "Uncategorized") == selected_pill]
 else:
     filtered_personas = personas_list
