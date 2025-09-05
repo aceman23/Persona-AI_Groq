@@ -10,10 +10,7 @@ from streamlit_pills import pills
 from util import hide_header_footer
 import os
 
-PERSONA_FILE = "personas_store.csv"
 
-# The rest of your code follows
-# ...
 
 load_dotenv()
 
