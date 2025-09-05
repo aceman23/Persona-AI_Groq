@@ -27,7 +27,7 @@ def open_chat(id,role,prompt,description):
     st.switch_page('pages/chat.py')
 
 def persona_grid_cell(id,role,description,prompt):
-    st.markdown(f"**ID: :** psn_id_{id}{role[:4]}")
+#    st.markdown(f"**ID: :** psn_id_{id}{role[:4]}")
     st.markdown(f"**Role**: {role}")
     st.markdown(f"**Description:** {description}")
     
