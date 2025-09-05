@@ -148,23 +148,23 @@ icon_list = [category_to_icon_map.get(cat, "❓") for cat in unique_categories]
 selected = pills("Category: ", unique_categories, icon_list)
 
     
-    if selected_pill != "All":
-        filtered_personas = [p for p in personas_list if p.get("category", "Uncategorized") == selected_pill]
-    else:
-        filtered_personas = personas_list
+  if selected_pill != "All":
+    filtered_personas = [p for p in personas_list if p.get("category", "Uncategorized") == selected_pill]
+else:
+    filtered_personas = personas_list
 
-    # Create the grid
-    num_cols = 4
-    cols = st.columns(num_cols)
-    for i, persona in enumerate(filtered_personas):
-        with cols[i % num_cols]:
-            with st.container(border=True):
-                st.markdown(f"**Role**: {persona['name']}")
-                st.markdown(f"**Tone**: {persona['tone']}")
-                st.markdown(f"**Domain**: {persona['domain']}")
-                if st.button('💬 Chat Now', key=f"chat_button_{persona['name']}"):
-                    st.session_state.active_persona = persona
-                    st.rerun()
+# Create the grid
+num_cols = 4
+cols = st.columns(num_cols)
+for i, persona in enumerate(filtered_personas):
+    with cols[i % num_cols]:
+        with st.container(border=True):
+            st.markdown(f"**Role**: {persona['name']}")
+            st.markdown(f"**Tone**: {persona['tone']}")
+            st.markdown(f"**Domain**: {persona['domain']}")
+            if st.button('💬 Chat Now', key=f"chat_button_{persona['name']}"):
+                st.session_state.active_persona = persona
+                st.rerun()
 
 else:
     st.info("No personas available to display. Please create one in the sidebar.")
