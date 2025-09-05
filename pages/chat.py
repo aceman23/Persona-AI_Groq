@@ -26,20 +26,21 @@ def save_personas(personas):
     df = pd.DataFrame(personas)
     df.to_csv(PERSONA_FILE, index=False)
 
-# ---- Initialize personas in session ----
+# ---- Initialize session state ----
 if "personas" not in st.session_state:
     st.session_state.personas = load_personas()
 
 if "edit_index" not in st.session_state:
     st.session_state.edit_index = None
 
+if "chat_histories" not in st.session_state:
+    st.session_state.chat_histories = {}  # persona_name → list of messages
+
 # ---- Persona Manager Sidebar ----
 st.sidebar.header("🧑‍🎨 Persona Manager")
 
-# Form for Add / Edit Persona
 with st.sidebar.form("persona_form", clear_on_submit=True):
     if st.session_state.edit_index is not None:
-        # Editing existing persona
         persona_to_edit = st.session_state.personas[st.session_state.edit_index]
         name = st.text_input("Persona Name", persona_to_edit["name"])
         tone = st.selectbox(
@@ -51,7 +52,6 @@ with st.sidebar.form("persona_form", clear_on_submit=True):
         backstory = st.text_area("Backstory", persona_to_edit["backstory"])
         submit_label = "💾 Update Persona"
     else:
-        # Adding new persona
         name = st.text_input("Persona Name")
         tone = st.selectbox("Tone", ["Friendly", "Professional", "Casual", "Formal", "Funny"])
         domain = st.text_input("Domain / Expertise")
@@ -62,17 +62,13 @@ with st.sidebar.form("persona_form", clear_on_submit=True):
 
     if submitted and name.strip():
         persona = {"name": name, "tone": tone, "domain": domain, "backstory": backstory}
-
         if st.session_state.edit_index is not None:
-            # Update existing persona
             st.session_state.personas[st.session_state.edit_index] = persona
             st.session_state.edit_index = None
             st.success(f"Persona '{name}' updated!")
         else:
-            # Add new persona
             st.session_state.personas.append(persona)
             st.success(f"Persona '{name}' added!")
-
         save_personas(st.session_state.personas)
 
 # ---- Persona Selection ----
@@ -82,7 +78,7 @@ if st.session_state.personas:
     selected = st.sidebar.selectbox("Active Persona", persona_names)
     active_persona = next((p for p in st.session_state.personas if p["name"] == selected), None)
 
-    # Edit/Delete buttons
+    # Edit/Delete
     col1, col2 = st.sidebar.columns(2)
     if col1.button("✏️ Edit"):
         st.session_state.edit_index = persona_names.index(selected)
@@ -90,24 +86,53 @@ if st.session_state.personas:
     if col2.button("🗑️ Delete"):
         st.session_state.personas = [p for p in st.session_state.personas if p["name"] != selected]
         save_personas(st.session_state.personas)
+        st.session_state.chat_histories.pop(selected, None)
         st.success(f"Persona '{selected}' deleted!")
         st.experimental_rerun()
 
+# ---- Chat UI ----
 if active_persona:
-    st.write(f"💬 Chatting as **{active_persona['name']}**")
-    st.write(f"Tone: {active_persona['tone']} | Domain: {active_persona['domain']}")
-    st.write(f"Backstory: {active_persona['backstory']}")
+    st.subheader(f"💬 Chat with **{active_persona['name']}**")
+    persona_name = active_persona["name"]
+
+    if persona_name not in st.session_state.chat_histories:
+        st.session_state.chat_histories[persona_name] = []
+
+    # Display chat history
+    for msg in st.session_state.chat_histories[persona_name]:
+        role, content = msg["role"], msg["content"]
+        if role == "user":
+            st.chat_message("user").markdown(content)
+        else:
+            st.chat_message("assistant").markdown(content)
+
+    # Chat input
+    if prompt := st.chat_input("Type your message..."):
+        # Add user message
+        st.session_state.chat_histories[persona_name].append({"role": "user", "content": prompt})
+        st.chat_message("user").markdown(prompt)
+
+        # Build system prompt
+        system_prompt = f"""
+        You are {active_persona['name']} with a {active_persona['tone']} tone.
+        Your expertise is in {active_persona['domain']}.
+        Backstory: {active_persona['backstory']}
+        """
+
+        # Call Groq API
+        client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+        response = client.chat.completions.create(
+            model="llama3-8b-8192",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                *st.session_state.chat_histories[persona_name],
+            ]
+        )
+
+        ai_reply = response.choices[0].message["content"]
+
+        # Add assistant message
+        st.session_state.chat_histories[persona_name].append({"role": "assistant", "content": ai_reply})
+        st.chat_message("assistant").markdown(ai_reply)
 else:
     st.info("👉 Please create or select a persona to start chatting.")
-
-# ---- Groq Client ----
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-
-if active_persona:
-    system_prompt = f"""
-    You are {active_persona['name']} with a {active_persona['tone']} tone.
-    Your expertise is in {active_persona['domain']}.
-    Backstory: {active_persona['backstory']}
-    """
-else:
-    system_prompt = "You are a helpful AI assistant."
