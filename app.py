@@ -124,9 +124,29 @@ personas_list = st.session_state.personas
 if personas_list:
     st.subheader("Explore All Personas")
     
-    # You can get unique categories from the session state data
-    categories_list = ["All"] + list(set(p.get("category", "Uncategorized") for p in personas_list))
-    selected_pill = pills("Category: ", categories_list,['💻','🐧','👨‍💻','💻','🔒','🔧','📡','💽'])
+# Create a dictionary to map each category to its icon
+category_to_icon_map = {
+    "All": "🎯",
+    "IT Expert": "💻",
+    "Help Desk": "👨‍💻",
+    "SAP": "📈",
+    "Data Scientist": "📊",
+    "Network": "🌐",
+    "Security": "🔒",
+    "Hardware": "🔧",
+    "Software": "🖥️",
+    # Add more mappings as you add categories
+}
+
+# Get a list of unique categories from the DataFrame
+unique_categories = ["All"] + df["Category"].unique().tolist()
+
+# Create a list of icons that matches the order of the categories
+icon_list = [category_to_icon_map.get(cat, "❓") for cat in unique_categories]
+
+# Pass the dynamic lists to pills()
+selected = pills("Category: ", unique_categories, icon_list)
+
     
     if selected_pill != "All":
         filtered_personas = [p for p in personas_list if p.get("category", "Uncategorized") == selected_pill]
