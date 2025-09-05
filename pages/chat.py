@@ -53,7 +53,7 @@ with st.sidebar.form("persona_form", clear_on_submit=True):
         submit_label = "💾 Update Persona"
     else:
         name = st.text_input("Persona Name")
-        tone = st.selectbox("Tone", ["Friendly", "Professional", "Casual", "Formal", "Funny"])
+        tone = st.selectbox("Tone", ["Professional", "Professional", "Casual", "Formal", "Funny"])
         domain = st.text_input("Domain / Expertise")
         backstory = st.text_area("Backstory")
         submit_label = "➕ Add Persona"
