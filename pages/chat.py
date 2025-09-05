@@ -109,11 +109,12 @@ if active_persona:
     # Chat input
     if prompt := st.chat_input("Type your message..."):
         # Add user message
+        system_prompt = f"""
         st.session_state.chat_histories[persona_name].append({"role": "user", "content": prompt})
         st.chat_message("user").markdown(prompt)
 
         # Build system prompt
-        system_prompt = f"""
+     
         You are {active_persona['name']} with a {active_persona['tone']} tone.
         Your expertise is in {active_persona['domain']}.
         Backstory: {active_persona['backstory']}
